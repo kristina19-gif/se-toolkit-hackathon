@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Planner</title>
+</head>
+<body>
+    <h1>AI Study Planner</h1>
+
+    <section>
+        <h2>Add Task</h2>
+        <form id="task-form">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" required>
+
+            <label for="importance">Importance (1-5)</label>
+            <input id="importance" name="importance" type="number" min="1" max="5" value="3" required>
+
+            <label for="effort">Effort (1-5)</label>
+            <input id="effort" name="effort" type="number" min="1" max="5" value="3" required>
+
+            <button type="submit">Add task</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Tasks</h2>
+        <button id="load-tasks" type="button">Load tasks</button>
+        <ul id="task-list"></ul>
+    </section>
+
+    <section>
+        <h2>Study Plan</h2>
+        <button id="generate-plan" type="button">Generate plan</button>
+        <ol id="plan-list"></ol>
+    </section>
+</body>
+</html>
