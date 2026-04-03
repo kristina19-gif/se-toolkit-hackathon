@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 from models import Task, TaskCreate
 
@@ -38,3 +38,13 @@ def generate_plan() -> list[Task]:
         tasks,
         key=lambda task: (-task.importance, task.effort, task.id),
     )
+
+
+@app.patch("/tasks/{task_id}/done")
+def update_task_done(task_id: int, done: bool) -> Task:
+    for task in tasks:
+        if task.id == task_id:
+            task.done = done
+            return task
+
+    raise HTTPException(status_code=404, detail="Task not found")
