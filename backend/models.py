@@ -10,3 +10,8 @@ class TaskCreate(BaseModel):
 class Task(TaskCreate):
     id: int
     done: bool = False
+
+
+class PlanResponse(BaseModel):
+    explanation: str
+    tasks: list[Task]
