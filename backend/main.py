@@ -43,12 +43,12 @@ def create_task(task: TaskCreate) -> Task:
 @app.get("/plan")
 def generate_plan() -> PlanResponse:
     planned_tasks = sorted(
-        tasks,
+        [task for task in tasks if not task.done],
         key=lambda task: (-task.importance, task.effort, task.id),
     )
     explanation = (
-        "Tasks are ordered by higher importance first and, when importance is the same, "
-        "by lower effort first."
+        "Only tasks that are not done are shown. They are ordered by higher importance first "
+        "and, when importance is the same, by lower effort first."
     )
     return PlanResponse(explanation=explanation, tasks=planned_tasks)
 
