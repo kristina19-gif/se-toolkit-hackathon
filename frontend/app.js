@@ -15,7 +15,22 @@ async function fetchTasks() {
 
     for (const task of tasks) {
         const item = document.createElement("li");
-        item.textContent = `${task.title} | importance: ${task.importance} | effort: ${task.effort} | done: ${task.done}`;
+        const text = document.createElement("span");
+        text.textContent = `${task.title} | importance: ${task.importance} | effort: ${task.effort} | status: `;
+
+        const toggleButton = document.createElement("button");
+        toggleButton.type = "button";
+        toggleButton.textContent = task.done ? "Mark done" : "Mark not done";
+        toggleButton.addEventListener("click", async () => {
+            await fetch(`${apiBaseUrl}/tasks/${task.id}/done?done=${String(!task.done)}`, {
+                method: "PATCH",
+            });
+            await fetchTasks();
+            await fetchPlan();
+        });
+
+        item.appendChild(text);
+        item.appendChild(toggleButton);
         taskList.appendChild(item);
     }
 }
