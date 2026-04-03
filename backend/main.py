@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from models import Task, TaskCreate
+from models import PlanResponse, Task, TaskCreate
 
 
 app = FastAPI(title="AI Study Planner API")
@@ -41,11 +41,16 @@ def create_task(task: TaskCreate) -> Task:
 
 
 @app.get("/plan")
-def generate_plan() -> list[Task]:
-    return sorted(
+def generate_plan() -> PlanResponse:
+    planned_tasks = sorted(
         tasks,
         key=lambda task: (-task.importance, task.effort, task.id),
     )
+    explanation = (
+        "Tasks are ordered by higher importance first and, when importance is the same, "
+        "by lower effort first."
+    )
+    return PlanResponse(explanation=explanation, tasks=planned_tasks)
 
 
 @app.patch("/tasks/{task_id}/done")
