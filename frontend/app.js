@@ -3,6 +3,7 @@ const apiBaseUrl = "http://127.0.0.1:8000";
 const taskForm = document.getElementById("task-form");
 const taskList = document.getElementById("task-list");
 const planList = document.getElementById("plan-list");
+const planExplanation = document.getElementById("plan-explanation");
 const loadTasksButton = document.getElementById("load-tasks");
 const generatePlanButton = document.getElementById("generate-plan");
 
@@ -21,11 +22,12 @@ async function fetchTasks() {
 
 async function fetchPlan() {
     const response = await fetch(`${apiBaseUrl}/plan`);
-    const tasks = await response.json();
+    const plan = await response.json();
 
     planList.innerHTML = "";
+    planExplanation.textContent = plan.explanation;
 
-    for (const task of tasks) {
+    for (const task of plan.tasks) {
         const item = document.createElement("li");
         item.textContent = `${task.title} | importance: ${task.importance} | effort: ${task.effort}`;
         planList.appendChild(item);
