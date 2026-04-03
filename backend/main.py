@@ -30,3 +30,11 @@ def create_task(task: TaskCreate) -> Task:
     )
     tasks.append(created_task)
     return created_task
+
+
+@app.get("/plan")
+def generate_plan() -> list[Task]:
+    return sorted(
+        tasks,
+        key=lambda task: (-task.importance, task.effort, task.id),
+    )
