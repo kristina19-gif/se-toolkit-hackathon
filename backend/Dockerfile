@@ -1,13 +1,14 @@
 FROM python:3.12-slim
 
-WORKDIR /app
+WORKDIR /app/backend
 
 RUN pip install uv
 
-COPY pyproject.toml uv.lock ./
+COPY backend/pyproject.toml backend/uv.lock ./
 RUN uv sync --frozen --no-install-project
 
-COPY . .
+COPY backend ./
+COPY frontend ../frontend
 
 EXPOSE 8000
 
