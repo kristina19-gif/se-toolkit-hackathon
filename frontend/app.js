@@ -1,11 +1,9 @@
-const apiBaseUrl = "http://127.0.0.1:8000";
+const apiBaseUrl = "";
 
 const taskForm = document.getElementById("task-form");
 const taskList = document.getElementById("task-list");
 const planList = document.getElementById("plan-list");
 const planExplanation = document.getElementById("plan-explanation");
-const loadTasksButton = document.getElementById("load-tasks");
-const generatePlanButton = document.getElementById("generate-plan");
 
 async function fetchTasks() {
     const response = await fetch(`${apiBaseUrl}/tasks`);
@@ -72,10 +70,7 @@ taskForm.addEventListener("submit", async (event) => {
     await fetchPlan();
 });
 
-loadTasksButton.addEventListener("click", async () => {
-    await fetchTasks();
-});
-
-generatePlanButton.addEventListener("click", async () => {
-    await fetchPlan();
+document.addEventListener("DOMContentLoaded", () => {
+    void fetchTasks();
+    void fetchPlan();
 });
